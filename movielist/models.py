@@ -37,9 +37,7 @@ class Comment(models.Model):
 class Rating(models.Model):
     user = models.ForeignKey('members.CustomUser', on_delete=models.CASCADE)
     movie = models.ForeignKey(MoiveData, on_delete=models.CASCADE)
-    rating_sum = models.IntegerField()
-    rating_cnt = models.IntegerField()
-    # rating_avg = models.IntegerField()
+    rating = models.FloatField(default=0)
 
     def __str__(self):
-        return self.rating_sum / self.rating_cnt
+        return self.rating
