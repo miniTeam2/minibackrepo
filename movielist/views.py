@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 import requests
-from .models import MoiveData, StaffData
+from .models import MoiveData, StaffData, Comment
 from rest_framework.response import Response
 from rest_framework import status
 # from rest_framework.authentication import TokenAuthentication
@@ -10,6 +10,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from .serializer import *
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import viewsets
+from django.db.models import Q
 
 
 class ListPagination(PageNumberPagination):
@@ -56,3 +57,10 @@ class MovieList(APIView):
         serializer = MoviePosterTitleSerializer(page, many=True)
         borders = paginator.get_paginated_response(serializer.data)
         return borders
+    
+
+class SearchMovie(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    def get(self, request, q):
+        movies = MoiveData.objects.filter(title_kor = q)
+        return Response(movies.data)
