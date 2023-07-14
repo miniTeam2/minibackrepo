@@ -10,12 +10,13 @@ class PostSerializer(serializers.ModelSerializer):
 class MoviePosterTitleSerializer(serializers.ModelSerializer):
     class Meta:
         model = MoiveData
-        fields = ['poster_url', 'title_kor']
+        fields = ['poster_url', 'title_kor', 'title_eng']
         
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
     class Meta:
         model = Comment
+
         fields = ['user', 'comment', 'created_at']
 
 class StaffSerializer(serializers.ModelSerializer):
