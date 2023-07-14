@@ -64,3 +64,4 @@ class SearchMovie(APIView):
     def get(self, request, q):
         movies = MoiveData.objects.filter(title_kor = q)
         return Response(movies.data)
+    

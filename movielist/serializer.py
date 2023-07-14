@@ -1,6 +1,6 @@
 from django.core import serializers
 from rest_framework import serializers
-from .models import MoiveData, StaffData, Comment
+from .models import MoiveData, StaffData, Comment, Rating
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,6 +11,11 @@ class MoviePosterTitleSerializer(serializers.ModelSerializer):
     class Meta:
         model = MoiveData
         fields = ['poster_url', 'title_kor']
+        
+class RatingSerializer(serializers.ModelSerializer):  
+    class Meta:
+        model = Rating                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+        fields = ['rating']
         
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')

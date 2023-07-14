@@ -33,3 +33,13 @@ class Comment(models.Model):
     
     def __str__(self):
         return self.comment
+
+class Rating(models.Model):
+    user = models.ForeignKey('members.CustomUser', on_delete=models.CASCADE)
+    movie = models.ForeignKey(MoiveData, on_delete=models.CASCADE)
+    rating_sum = models.IntegerField()
+    rating_cnt = models.IntegerField()
+    # rating_avg = models.IntegerField()
+
+    def __str__(self):
+        return self.rating_sum / self.rating_cnt
