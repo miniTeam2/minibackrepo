@@ -11,6 +11,7 @@ from .serializer import *
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import viewsets
 from django.db.models import Q
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 class ListPagination(PageNumberPagination):
@@ -49,7 +50,8 @@ def init_db(request):
     return render(request, 'movielist/init_db.html', {'movies': movies})
 
 class MovieList(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [JWTAuthentication]
     def get(self, request):
         movies = MoiveData.objects.all()
         paginator = ListPagination()
@@ -60,7 +62,8 @@ class MovieList(APIView):
     
 
 class SearchMovie(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [JWTAuthentication]
     def get(self, request, q):
         movies = MoiveData.objects.filter(Q(title_kor__contains = q)|Q(title_eng__contains = q))
         serializer = MoviePosterTitleSerializer(movies, many=True)

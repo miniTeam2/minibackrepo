@@ -1,4 +1,5 @@
 from datetime import timedelta
+import pymysql
 
 """
 Django settings for movie project.
@@ -88,10 +89,21 @@ WSGI_APPLICATION = 'movie.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'movie',
+        'USER': 'root',
+        'PASSWORD': '12345678',
+        'HOST': 'svc.sel4.cloudtype.app',
+        'PORT': '32498'
     }
 }
 
@@ -193,7 +205,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_EMAIL_REQUIRED = False
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=3),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -206,3 +218,5 @@ SIMPLE_JWT = {
     'TOKEN_TYPE_CLAIM': 'token_type',
     'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
 }
+
+pymysql.install_as_MySQLdb()
