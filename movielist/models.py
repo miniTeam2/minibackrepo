@@ -24,3 +24,12 @@ class StaffData(models.Model):
     
     def __str__(self):
         return self.name
+    
+class Comment(models.Model):
+    user = models.ForeignKey('members.CustomUser', on_delete=models.CASCADE)
+    movie = models.ForeignKey(MoiveData, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    comment = models.TextField()
+    
+    def __str__(self):
+        return self.comment

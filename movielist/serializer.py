@@ -1,6 +1,6 @@
 from django.core import serializers
 from rest_framework import serializers
-from .models import MoiveData, StaffData
+from .models import MoiveData, StaffData, Comment
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,3 +16,8 @@ class MoviePosterTitleSerializer(serializers.ModelSerializer):
     class Meta:
         model = MoiveData
         fields = ['poster_url', 'title_kor']
+        
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
