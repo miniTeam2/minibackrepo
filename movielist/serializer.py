@@ -11,3 +11,8 @@ class MovieListSerializer(serializers.ModelSerializer):
     class Meta:
         model = MoiveData
         fields = '__all__'
+        
+class MoviePosterTitleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MoiveData
+        fields = ['poster_url', 'title_kor']
