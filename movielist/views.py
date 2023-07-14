@@ -62,5 +62,6 @@ class MovieList(APIView):
 class SearchMovie(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     def get(self, request, q):
-        movies = MoiveData.objects.filter(title_kor = q)
-        return Response(movies.data)
+        movies = MoiveData.objects.filter(Q(title_kor__contains = q)|Q(title_eng__contains = q))
+        serializers = MoviePosterTitleSerializer(movies, many=True)
+        return Response(serializers.data)

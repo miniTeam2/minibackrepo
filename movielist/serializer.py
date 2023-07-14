@@ -15,9 +15,14 @@ class MovieListSerializer(serializers.ModelSerializer):
 class MoviePosterTitleSerializer(serializers.ModelSerializer):
     class Meta:
         model = MoiveData
-        fields = ['poster_url', 'title_kor']
+        fields = ['poster_url', 'title_kor', 'title_eng']
         
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
+
+# class MovieSearchSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = MoiveData
+#         fields = ['title_kor']
