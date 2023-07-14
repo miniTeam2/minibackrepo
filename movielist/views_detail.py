@@ -11,6 +11,8 @@ from .serializer import *
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import viewsets
 
+class ListPagination(PageNumberPagination):
+    page_size = 10
 
 class MovieDetail(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication]
@@ -19,17 +21,15 @@ class MovieDetail(APIView):
         serializer = MovieListSerializer(movie)
         return Response(serializer.data)
     
-
-# 코멘트를 작성한다.
-# 코멘트 옆에 유저 이름 보여준다.
-# 로그인 하지 않은 사람은 코멘트를 입력할 수 없게 막는다.
-# 로그인 하지 않은 사람이 코멘트를 입력하려 하면 로그인 페이지로 이동할 수 있도록 메세지를 출력한다.
 class CommentView(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     def get(self, request, title_kor):
         comments = Comment.objects.filter(movie__title_kor=title_kor)
-        serializer = CommentSerializer(comments, many=True)
-        return Response(serializer.data)
+        paginator = ListPagination()
+        page = paginator.paginate_queryset(comments, request)
+        serializer = CommentSerializer(page, many=True)
+        borders = paginator.get_paginated_response(serializer.data)
+        return borders
     
     def post(self, request, title_kor):
         serializer = CommentSerializer(data=request.data)
