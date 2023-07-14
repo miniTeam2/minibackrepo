@@ -53,6 +53,6 @@ class MovieList(APIView):
         movies = MoiveData.objects.all()
         paginator = ListPagination()
         page = paginator.paginate_queryset(movies, request)
-        serializer = MovieListSerializer(page, many=True)
+        serializer = MoviePosterTitleSerializer(page, many=True)
         borders = paginator.get_paginated_response(serializer.data)
         return borders
