@@ -65,3 +65,20 @@ class SearchMovie(APIView):
         movies = MoiveData.objects.filter(Q(title_kor__contains = q)|Q(title_eng__contains = q))
         serializer = MoviePosterTitleSerializer(movies, many=True)
         return Response(serializer.data)
+    
+    
+class RatingView(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    # def get(self, request, title_kor):
+    #     movie = get_object_or_404(MoiveData, title_kor=title_kor)
+    #     ratings = Rating.objects.filter(movie=movie)
+    #     serializer = RatingSerializer(ratings, many=True)
+    #     return Response(serializer.data)
+    
+    def post(self, request, title_kor):
+        movie = get_object_or_404(MoiveData, title_kor=title_kor)
+        serializer = RatingSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user, movie=movie)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
