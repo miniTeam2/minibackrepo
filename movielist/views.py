@@ -67,7 +67,8 @@ class SearchMovie(APIView):
     def get(self, request, q):
         movies = MoiveData.objects.filter(Q(title_kor__contains = q)|Q(title_eng__contains = q))
         serializer = MoviePosterTitleSerializer(movies, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        
     
     
 class RatingView(APIView):
