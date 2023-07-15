@@ -223,3 +223,6 @@ SIMPLE_JWT = {
 }
 
 pymysql.install_as_MySQLdb()
+
+
+CORS_ALLOW_CREDENTIALS = True
