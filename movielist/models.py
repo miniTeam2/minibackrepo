@@ -1,4 +1,5 @@
 from django.db import models
+# from django.core.validators import MinValueValidator, MaxValueValidator
 
 class MoiveData(models.Model):
     title_kor = models.CharField(max_length=100, unique=True)
@@ -37,6 +38,7 @@ class Comment(models.Model):
 class Rating(models.Model):
     user = models.ForeignKey('members.CustomUser', on_delete=models.CASCADE)
     movie = models.ForeignKey(MoiveData, on_delete=models.CASCADE)
+    # rating = models.FloatField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
     rating = models.FloatField(default=0)
 
     def __str__(self):
