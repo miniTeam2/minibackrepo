@@ -80,6 +80,7 @@ class RatingView(APIView):
     #     return Response(serializer.data)
     
     def post(self, request, title_kor):
+        # request: 0 ~ 5 사이의 실수
         movie = get_object_or_404(MoiveData, title_kor=title_kor)
         serializer = RatingSerializer(data=request.data)
         if serializer.is_valid():

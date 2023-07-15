@@ -10,19 +10,22 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from .serializer import *
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import viewsets
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class ListPagination(PageNumberPagination):
     page_size = 10
 
 class MovieDetail(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [JWTAuthentication]
     def get(self, request, title_kor):
         movie = get_object_or_404(MoiveData, title_kor=title_kor)
         serializer = MovieListSerializer(movie)
         return Response(serializer.data)
     
 class CommentView(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [JWTAuthentication]
     def get(self, request, title_kor):
         comments = Comment.objects.filter(movie__title_kor=title_kor)
         paginator = ListPagination()
