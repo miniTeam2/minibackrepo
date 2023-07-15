@@ -68,7 +68,7 @@ class SearchMovie(APIView):
         movies = MoiveData.objects.filter(Q(title_kor__contains = q)|Q(title_eng__contains = q))
         paginator = ListPagination()
         page = paginator.paginate_queryset(movies, request)
-        serializer = MoviePosterTitleSerializer(movies, many=True)
+        serializer = MoviePosterTitleSerializer(page, many=True)
         borders = paginator.get_paginated_response(serializer.data)
         return borders
         
