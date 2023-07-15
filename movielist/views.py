@@ -66,8 +66,11 @@ class SearchMovie(APIView):
     authentication_classes = [JWTAuthentication]
     def get(self, request, q):
         movies = MoiveData.objects.filter(Q(title_kor__contains = q)|Q(title_eng__contains = q))
-        serializer = MoviePosterTitleSerializer(movies, many=True)
-        return Response(serializer.data)
+        paginator = ListPagination()
+        page = paginator.paginate_queryset(movies, request)
+        serializer = MoviePosterTitleSerializer(page, many=True)
+        borders = paginator.get_paginated_response(serializer.data)
+        return borders
         
     
     
