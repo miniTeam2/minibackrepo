@@ -71,7 +71,8 @@ class SearchMovie(APIView):
     
     
 class RatingView(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [JWTAuthentication]
     # def get(self, request, title_kor):
     #     movie = get_object_or_404(MoiveData, title_kor=title_kor)
     #     ratings = Rating.objects.filter(movie=movie)
