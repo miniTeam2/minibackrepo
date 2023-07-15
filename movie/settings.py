@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'allauth.account',
     # simple-jwt 관련
     'rest_framework_simplejwt',
+    # cors
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
