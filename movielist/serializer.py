@@ -16,7 +16,8 @@ class RatingSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
     movie = serializers.ReadOnlyField(source='movie.title_kor')
     
-    def validate_rating(self, value):
+    # validate_{field name} : field의 값이 유효한지 확인
+    def validate_rating(self, value): # rating이 0~5 사이의 값인지 확인
         if 0 <= value <= 5:
             return value
         else:
@@ -43,7 +44,8 @@ class MovieListSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True, source='comment_set')
     avg_rating = serializers.SerializerMethodField()
     
-    def get_avg_rating(self, obj):
+    # get_{field name} : field의 값을 얻는 함수
+    def get_avg_rating(self, obj): # 영화의 평균 평점을 구하는 함수
         ratings = Rating.objects.filter(movie=obj)
         if 0 < len(ratings):
             total_rating = 0

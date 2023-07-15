@@ -38,6 +38,7 @@ class Comment(models.Model):
 class Rating(models.Model):
     user = models.ForeignKey('members.CustomUser', on_delete=models.CASCADE)
     movie = models.ForeignKey(MoiveData, on_delete=models.CASCADE)
+    # 0~5 사이의 값만 받도록 설정
     # rating = models.FloatField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
     rating = models.FloatField(default=0)
 
